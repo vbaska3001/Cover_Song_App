@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Cover Validator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="login-modal"
+        style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); display: flex; justify-content: center; align-items: center; z-index: 2000;">
+        <div style="background: #1e1e1e; padding: 40px; border-radius: 10px; text-align: center;">
+            <h2>Enter Your Name</h2>
+            <input type="text" id="username-input" placeholder="Name"
+                style="padding: 10px; font-size: 16px; border-radius: 5px; border: none; margin-bottom: 20px; width: 200px;">
+            <br>
+            <button id="login-btn" class="btn yes" style="margin: 0;">Start</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1>YouTube Cover Validator</h1>
+            <div style="margin-bottom: 10px;">
+                <a href="/stats.html" style="color: #aaa; text-decoration: none;">View Stats</a>
+            </div>
+            <div class="instructions">
+                <p>Cover songs are the alternate renditions of an original song. It can be a live performance,
+                    instrumental cover, acoustic, acapella, medley etc.. Below you are shown a song and a potential
+                    cover of it. Your task is to verify if the candidate cover is indeed a real cover song.</p>
+                <p>You need to follow a few set of rules to validate it:</p>
+                <ol>
+                    <li>It is not a cover song if it's the same audio with other videos in it.</li>
+                    <li>A dance cover, lyrics video, video song, etc. cannot be considered a cover.</li>
+                    <li>A song sung by the same artist in a different event or modulation is a cover song.</li>
+                    <li>Try to be strict with your judgements.</li>
+                </ol>
+                <p>Have fun!</p>
+            </div>
+            <div id="status-message">Loading...</div>
+        </header>
+
+        <div class="video-container">
+            <div class="video-box">
+                <h2>Original Song</h2>
+                <h3 id="original-title"></h3>
+                <div class="iframe-wrapper">
+                    <iframe id="original-embed" width="560" height="315" src="" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+                </div>
+            </div>
+
+            <div class="video-box">
+                <h2>Candidate Cover</h2>
+                <h3 id="candidate-title"></h3>
+                <div class="iframe-wrapper">
+                    <iframe id="candidate-embed" width="560" height="315" src="" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <p>Is the candidate video a cover of the original?</p>
+            <button id="btn-yes" class="btn yes">Yes (Cover)</button>
+            <button id="btn-no" class="btn no">No (Not Cover)</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>

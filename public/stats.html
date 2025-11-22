@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vote Statistics</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: #1e1e1e;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #333;
+        }
+
+        th {
+            background-color: #2d2d2d;
+            color: #ff0000;
+        }
+
+        tr:hover {
+            background-color: #252525;
+        }
+
+        .status-cover {
+            color: #4caf50;
+            font-weight: bold;
+        }
+
+        .status-not-cover {
+            color: #f44336;
+            font-weight: bold;
+        }
+
+        .nav-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: #aaa;
+            text-decoration: none;
+        }
+
+        .nav-link:hover {
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Vote Statistics</h1>
+            <a href="/" class="nav-link">← Back to Validator</a>
+        </header>
+
+        <div id="stats-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Original Song</th>
+                        <th>Candidate Cover</th>
+                        <th>Verdict</th>
+                        <th>Votes (Yes/No)</th>
+                    </tr>
+                </thead>
+                <tbody id="stats-body">
+                    <!-- Rows will be added here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        async function loadStats() {
+            try {
+                const response = await fetch('/api/votes');
+                const votes = await response.json();
+                const tbody = document.getElementById('stats-body');
+
+                votes.forEach(vote => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${vote.original_title}</td>
+                        <td><a href="https://www.youtube.com/watch?v=${vote.candidate_id}" target="_blank" style="color: inherit;">${vote.candidate_title}</a></td>
+                        <td class="${vote.is_cover ? 'status-cover' : 'status-not-cover'}">${vote.is_cover ? 'COVER' : 'NOT COVER'}</td>
+                        <td>${vote.votes_yes || 0} / ${vote.votes_no || 0}</td>
+                    `;
+                    tbody.appendChild(row);
+                });
+
+                if (votes.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;">No votes recorded yet.</td></tr>';
+                }
+            } catch (error) {
+                console.error("Error loading stats:", error);
+            }
+        }
+        loadStats();
+    </script>
+</body>
+
+</html>
