@@ -83,6 +83,7 @@ app.get('/api/pair', async (req, res) => {
                     return res.json({
                         original_id: original.original_id,
                         original_title: original.original_title,
+                        song_number: original.song_number, // Return friendly ID
                         candidate: candidate,
                         original_index: original._id, // Use _id for DB lookup
                         candidate_index: j // We still need index or ID to find subdoc

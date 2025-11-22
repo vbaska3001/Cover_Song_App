@@ -21,6 +21,7 @@ const CandidateCoverSchema = new mongoose.Schema({
 });
 
 const SongSchema = new mongoose.Schema({
+    song_number: Number, // Friendly ID for display
     original_id: { type: String, required: true },
     original_title: String,
     original_search_query: String,

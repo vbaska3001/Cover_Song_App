@@ -54,7 +54,7 @@ const migrate = async () => {
         const songsToInsert = songsData.map((song, index) => {
             const bucketIndex = Math.floor(index / chunkSize);
             const assignedUser = buckets[bucketIndex] || 'others';
-            return { ...song, assigned_user: assignedUser };
+            return { ...song, assigned_user: assignedUser, song_number: index + 1 };
         });
 
         await Song.insertMany(songsToInsert);
